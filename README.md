@@ -11,3 +11,4 @@ POTENTIAL IMPROVEMENTS
 4.1 properly handle network errors
 </br>
 4.2 store weather history to see previous cities
+5 Manage situation when user does not let geo permission

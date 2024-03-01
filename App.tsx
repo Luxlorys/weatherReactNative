@@ -57,16 +57,27 @@ export default function App() {
     const handleSeachCity = async () => {
 
         if (specificCity === '') {
-            return Alert.alert('Fill the city field, pleasy')
+            Alert.alert('Fill the city field, pleasy');
+            return;
         }
 
         try {
             const { currentWeather, forecastWeather } = await weatherService.getWeatherForSpecificCity(specificCity, units);
+            console.log(currentWeather);
+            console.log(forecastWeather);
             setCurrentWeather(currentWeather);
             setForecastWeather(forecastWeather);
         } catch (error) {
-            console.log(error);
-            throw error;
+            if (error.response && error.response.status === 404) {
+                // City not found error
+                setErrorMsg('City not found. Please try again.');
+                Alert.alert(errorMsg);
+                return;
+            } else {
+            // Handle other errors (e.g., network errors)
+            console.error(error);
+            setErrorMsg('An error occurred. Please try again later.');
+            }
         }
     }
 
